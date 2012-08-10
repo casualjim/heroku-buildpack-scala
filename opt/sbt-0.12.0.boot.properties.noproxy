@@ -8,7 +8,7 @@
   version: read(sbt.version)
   class: sbt.xMain
   components: xsbti
-  cross-versioned: true
+  cross-versioned: false
 # classifiers: sources, javadocs
 
 [repositories]
