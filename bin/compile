@@ -46,10 +46,10 @@ if ! has_supported_sbt_version ${BUILD_DIR}; then
 fi
  
 SBT_VERSION="$(get_supported_sbt_version ${BUILD_DIR})"
-SBT_JAR="sbt-launch-0.11.3-2.jar"
+SBT_JAR="sbt-launch.jar"
 SBT_PROPS="sbt-$SBT_VERSION.boot.properties"
-SBT_URL="http://s3.amazonaws.com/heroku-jvm-langpack-scala/$SBT_JAR"
-SBT_PROPS_URL="http://s3.amazonaws.com/heroku-jvm-langpack-scala/$SBT_PROPS"
+SBT_URL="http://typesafe.artifactoryonline.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/$SBT_VERSION/$SBT_JAR"
+SBT_PROPS_URL="https://raw.github.com/casualjim/heroku-buildpack-scala/master/opt/$SBT_PROPS"
 ## in 0.10 start-script will depend on package, if packaging
 ## is required - it may not be, we can run .class files or a package-war
 ## instead.
@@ -87,11 +87,11 @@ curl --silent --max-time 10 --location $SBT_PROPS_URL --output "$SBT_BINDIR"/sbt
 
 
 #echo -n "-----> Intsalling plugins..."
-HEROKU_PLUGIN="Heroku-0.11.3.scala"
-mkdir -p "$SBT_USER_HOME/.sbt/plugins" && curl --silent --max-time 10 --location "http://s3.amazonaws.com/heroku-jvm-langpack-scala/$HEROKU_PLUGIN" --output "$SBT_USER_HOME/.sbt/plugins/$HEROKU_PLUGIN"
+HEROKU_PLUGIN="Heroku-$SBT_VERSION.scala"
+mkdir -p "$SBT_USER_HOME/.sbt/plugins" && curl --silent --max-time 10 --location "https://raw.github.com/casualjim/heroku-buildpack-scala/master/opt/$HEROKU_PLUGIN" --output "$SBT_USER_HOME/.sbt/plugins/$HEROKU_PLUGIN"
 
-HEROKU_PLUGINS_CONFIG="heroku-plugins-0.11.3.sbt"
-mkdir -p "$SBT_USER_HOME/.sbt/plugins" && curl --silent --max-time 10 --location "http://s3.amazonaws.com/heroku-jvm-langpack-scala/$HEROKU_PLUGINS_CONFIG"  --output "$SBT_USER_HOME/.sbt/plugins/$HEROKU_PLUGINS_CONFIG"
+HEROKU_PLUGINS_CONFIG="heroku-plugins-$SBT_VERSION.sbt"
+mkdir -p "$SBT_USER_HOME/.sbt/plugins" && curl --silent --max-time 10 --location "https://raw.github.com/casualjim/heroku-buildpack-scala/master/opt/$HEROKU_PLUGINS_CONFIG"  --output "$SBT_USER_HOME/.sbt/plugins/$HEROKU_PLUGINS_CONFIG"
 #echo " done"
 
 # build app
